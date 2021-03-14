@@ -3,6 +3,12 @@ import React, { Component } from "react";
 import InputComponent from "./components/InputComponent";
 import BalaoComponent from "./components/BalaoComponent";
 
+const LinhaContainer = styled.div`
+  display: flex;
+  width: 490px;
+  padding: 10px;
+`;
+
 const ChatContainer = styled.div`
   min-height: 100vh;
   background-color: pink;
@@ -13,6 +19,8 @@ const ChatContainer = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   align-items: start;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
 `;
 
 const InputsContainer = styled.div`
@@ -52,7 +60,7 @@ export default class App extends Component {
   onClickEnviar = () => {
     const mensagem = {
       id: this.state.idMensagem,
-      usuario: this.state.inputUsuario,
+      usuario: this.state.inputUsuario.trim(),
       mensagem: this.state.inputMensagem,
     };
 
@@ -83,7 +91,7 @@ export default class App extends Component {
   render() {
     const listademensagens = this.state.mensagens.map((mensagem) => {
       return (
-        <div key={mensagem.id}>
+        <LinhaContainer key={mensagem.id}>
           <BalaoComponent
             usuario={mensagem.usuario}
             mensagem={mensagem.mensagem}
@@ -91,7 +99,7 @@ export default class App extends Component {
               this.onDubleClickExcluiMsg(mensagem.id);
             }}
           />
-        </div>
+        </LinhaContainer>
       );
     });
 
